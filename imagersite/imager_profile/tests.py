@@ -5,6 +5,7 @@ from random import uniform, choice
 
 
 class UserFactory(factory.django.DjangoModelFactory):
+    """test user"""
     class Meta:
         model = User
 
@@ -13,6 +14,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class ProfileFactory(factory.django.DjangoModelFactory):
+    """test profile"""
     class Meta:
         model = ImagerProfile
 
@@ -27,8 +29,10 @@ class ProfileFactory(factory.django.DjangoModelFactory):
 
 
 class ProfileUnitTests(TestCase):
+    """unit test profile"""
     @classmethod
     def setUpClass(cls):
+        """set up test database"""
         super(TestCase, cls)
         for _ in range(50):
             user = UserFactory.create()
@@ -40,9 +44,11 @@ class ProfileUnitTests(TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        """tear down test database"""
         User.objects.all().delete()
         super(TestCase, cls)
 
     def test_user_can_see_its_profile(self):
+        """test to see if user has profile"""
         one_user = User.objects.first()
         self.assertIsNotNone(one_user.profile)
