@@ -52,3 +52,53 @@ class ProfileUnitTests(TestCase):
         """test to see if user has profile"""
         one_user = User.objects.first()
         self.assertIsNotNone(one_user.profile)
+
+    def test_delete_user_will_delete_profile(self):
+        """test that profile is deleted when user is deleted"""
+        one_user = User.objects.first()
+        self.assertIsNotNone(ImagerProfile.objects.filter(user=one_user))
+        one_user.delete()
+        self.assertFalse(ImagerProfile.objects.filter(user=one_user).exists())
+
+    def test_imager_profile_bio(self):
+        """test profile has bio"""
+        prof = ImagerProfile.objects.first()
+        self.assertIsInstance(prof.bio, str)
+
+    def test_imager_profile_phone(self):
+        """test profile has phone"""
+        prof = ImagerProfile.objects.first()
+        self.assertIsInstance(prof.phone, str)
+
+    def test_imager_profile_location(self):
+        """test profile has location"""
+        prof = ImagerProfile.objects.first()
+        self.assertIsInstance(prof.location, str)
+
+    def test_imager_profile_website(self):
+        """test profile has website"""
+        prof = ImagerProfile.objects.first()
+        self.assertIsInstance(prof.website, str)
+
+    def test_imager_profile_fee(self):
+        """test profile has fee"""
+        prof = ImagerProfile.objects.first()
+        self.assertIsInstance(prof.fee, float)
+
+    def test_imager_profile_camera(self):
+        """test profile has camera"""
+        prof = ImagerProfile.objects.first()
+        self.assertIsInstance(prof.camera, str)
+
+    def test_imager_profile_services(self):
+        """test profile has services"""
+        prof = ImagerProfile.objects.first()
+        self.assertIsInstance(prof.services, list)
+
+    def test_imager_profile_photostyles(self):
+        """test profile has photostyles"""
+        prof = ImagerProfile.objects.first()
+        self.assertIsInstance(prof.photostyles, list)
+
+
+# unit test for all of the default properties of your model, some tests that validate that if delete user, profile goes as well; if create user, there is a profile there
