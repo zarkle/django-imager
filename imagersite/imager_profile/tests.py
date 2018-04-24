@@ -99,6 +99,3 @@ class ProfileUnitTests(TestCase):
         """test profile has photostyles"""
         prof = ImagerProfile.objects.first()
         self.assertIsInstance(prof.photostyles, list)
-
-
-# unit test for all of the default properties of your model, some tests that validate that if delete user, profile goes as well; if create user, there is a profile there
