@@ -1,4 +1,4 @@
-Welcome to Shopper, {{ user }}!
+Welcome to Imager, {{ user }}!
 
 To activate your account, please click the link below:
 http://{{site}}{% url 'registration_activate' activation_key=activation_key %}
