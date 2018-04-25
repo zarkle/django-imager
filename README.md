@@ -2,7 +2,7 @@
 
 **Author**: Beverly and Austin
 
-**Version**: 0.2.0
+**Version**: 0.3.0
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 301 class. (i.e. What's your problem domain?) -->
@@ -20,6 +20,7 @@ Python 3, Django 2, FactoryBoy, CSS, HTML, Postgres
 <!-- Use this are to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource.-->
+- 4/25 - Photo and Album tables for database.
 - 4/24 - Routing, styling, and registration.
 - 4/23 - Initial setup of user database and log-in/out.
 
