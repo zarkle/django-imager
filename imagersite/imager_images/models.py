@@ -26,7 +26,7 @@ class Photo(models.Model):
 
 class Album(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='albums')
-    photos = models.ManyToManyField(Photo, related_name='photographs')
+    photos = models.ManyToManyField(Photo, related_name='albums')
     cover = models.ForeignKey('Photo', on_delete=models.CASCADE, related_name='+', null=True, blank=True)
     title = models.CharField(max_length=180, default='Untitled')
     description = models.TextField(blank=True, null=True)
