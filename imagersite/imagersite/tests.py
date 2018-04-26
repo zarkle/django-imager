@@ -1,4 +1,7 @@
 from django.test import TestCase, Client
+from django.urls import reverse_lazy
+from django.core import mail
+from urllib.parse import urlparse
 
 
 class BasicViewTests(TestCase):
@@ -67,3 +70,32 @@ class BasicViewTests(TestCase):
         response = self.client.get('/accounts/register/complete/')
         self.assertIn(
             'Registration complete', response.content.decode('utf-8'))
+
+    def test_get_home_page(self):
+        """Test get homepage."""
+        response = self.client.get(reverse_lazy('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.templates[0].name, 'generic/home.html')
+        self.assertEqual(response.templates[1].name, 'generic/base.html')
+
+    def test_get_registration_page(self):
+        """Test registration page."""
+        response = self.client.get(reverse_lazy('registration_register'))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.templates[0].name, 'registration/registration_form.html')
+        self.assertEqual(response.templates[1].name, 'generic/base.html')
+
+    def test_register_user(self):
+        """Test for user registration."""
+        response = self.client.post(reverse_lazy('registration_register'), {'username': 'meow', 'password1': 'pass1234', 'password2': 'pass1234', 'email': 'meow@meow.com'}, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.templates[0].name, 'registration/registration_complete.html')
+        self.assertEqual(response.templates[1].name, 'generic/base.html')
+        self.assertEqual(len(mail.outbox), 1)
+        email = mail.outbox[0]
+        self.assertEqual(email.to, ['meow@meow.com'])
+        register_url = email.body.splitlines()[-1]
+        register_url = urlparse(register_url)
+        response = self.client.get(register_url.path)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(self.client.login(username='meow', password='pass1234'))
