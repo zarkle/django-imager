@@ -29,7 +29,7 @@ class ProfileFactory(factory.django.DjangoModelFactory):
 
 
 class ProfileUnitTests(TestCase):
-    """unit test profile"""
+    """Unit test profile."""
     @classmethod
     def setUpClass(cls):
         """set up test database"""
