@@ -24,6 +24,7 @@ class PhotoFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         """Meta class."""
+
         model = Photo
 
     image = SimpleUploadedFile(
