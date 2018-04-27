@@ -7,7 +7,7 @@
 {% for photo in album %}
 <h3>{{photo.title}}</h3>
 
-{% thumbnail photo.image "500" as image %}
+{% thumbnail photo.image "200" as image %}
 <a href="{% url "photo_detail" id=photo.id %}"><img src="{{ image.url }}"></a>
 {% endthumbnail %}
 
