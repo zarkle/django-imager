@@ -8,8 +8,11 @@ import os
 
 
 class UserFactory(factory.django.DjangoModelFactory):
-    """test user"""
+    """Test user."""
+
     class Meta:
+        """Meta class."""
+
         model = User
 
     username = factory.Faker('user_name')
@@ -17,8 +20,10 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
-    """test photo"""
+    """Test photo."""
+
     class Meta:
+        """Meta class."""
         model = Photo
 
     image = SimpleUploadedFile(
@@ -37,8 +42,11 @@ class PhotoFactory(factory.django.DjangoModelFactory):
 
 
 class AlbumFactory(factory.django.DjangoModelFactory):
-    """test album"""
+    """Test album."""
+
     class Meta:
+        """Meta class."""
+
         model = Album
 
     title = factory.Faker('name')
@@ -50,10 +58,11 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
 
 class PhotoUnitTests(TestCase):
-    """unit test photo"""
+    """Unit test photo."""
+
     @classmethod
     def setUpClass(cls):
-        """set up test database with one user who has 5 photos over 2 albums"""
+        """Set up test database with one user who has 5 photos over 2 albums."""
         super(TestCase, cls)
         user = UserFactory.create()
         user.set_password(factory.Faker('password'))
@@ -75,92 +84,92 @@ class PhotoUnitTests(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """tear down test database"""
+        """Tear down test database."""
         User.objects.all().delete()
         super(TestCase, cls)
 
     def test_one_photo(self):
-        """test photo exists"""
+        """Test photo exists."""
         one_photo = Photo.objects.first()
         self.assertIsNotNone(one_photo)
 
     def test_photo_image(self):
-        """test photo has image"""
+        """Test photo has image."""
         image = Photo.objects.first()
         self.assertIsInstance(image.image, object)
 
     def test_photo_title(self):
-        """test photo has title"""
+        """Test photo has title."""
         image = Photo.objects.first()
         self.assertIsInstance(image.title, str)
 
     def test_photo_description(self):
-        """test photo has description"""
+        """Test photo has description."""
         image = Photo.objects.first()
         self.assertIsInstance(image.description, str)
 
     def test_photo_date_uploaded(self):
-        """test photo upload date"""
+        """Test photo upload date."""
         image = Photo.objects.first()
         self.assertIsInstance(image.date_uploaded, object)
 
     def test_photo_date_modified(self):
-        """test photo modified date"""
+        """Test photo modified date."""
         image = Photo.objects.first()
         self.assertIsInstance(image.date_modified, object)
 
     def test_photo_date_published(self):
-        """test photo published date"""
+        """Test photo published date."""
         image = Photo.objects.first()
         self.assertIsInstance(image.date_published, object)
 
     def test_photo_published(self):
-        """test photo published"""
+        """Test photo published."""
         image = Photo.objects.first()
         self.assertIsInstance(image.published, str)
 
     def test_one_album(self):
-        """test album exists"""
+        """Test album exists."""
         one_album = Album.objects.first()
         self.assertIsNotNone(one_album)
 
     def test_two_album(self):
-        """test all albums exist"""
+        """Test all albums exist."""
         two_albums = Album.objects.all()
         self.assertEqual(2, len(two_albums))
 
     def test_album_title(self):
-        """test album title"""
+        """Test album title."""
         album = Album.objects.first()
         self.assertIsInstance(album.title, str)
 
     def test_album_description(self):
-        """test album description"""
+        """Test album description."""
         album = Album.objects.first()
         self.assertIsInstance(album.description, str)
 
     def test_album_date_created(self):
-        """test album created date"""
+        """Test album created date."""
         album = Album.objects.first()
         self.assertIsInstance(album.date_created, object)
 
     def test_album_date_modified(self):
-        """test album modified date"""
+        """Test album modified date."""
         album = Album.objects.first()
         self.assertIsInstance(album.date_modified, object)
 
     def test_album_date_published(self):
-        """test album published date"""
+        """Test album published date."""
         album = Album.objects.first()
         self.assertIsInstance(album.date_published, object)
 
     def test_album_published(self):
-        """test album published"""
+        """Test album published."""
         album = Album.objects.first()
         self.assertIsInstance(album.published, str)
 
     def test_album_lengths(self):
-        """test album has correct number of photos"""
+        """Test album has correct number of photos."""
         album = Album.objects.all()
         album, album2 = album[0], album[1]
         self.assertEqual(2, album.photos.count())

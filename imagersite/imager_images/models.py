@@ -4,6 +4,8 @@ from sorl.thumbnail import ImageField
 
 
 class Photo(models.Model):
+    """Photo model."""
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='photos')
     image = ImageField(upload_to='images')
     title = models.CharField(max_length=180, default='Untitled')
@@ -21,10 +23,13 @@ class Photo(models.Model):
     )
 
     def __str__(self):
+        """String."""
         return '{}'.format(self.title)
 
 
 class Album(models.Model):
+    """Album model."""
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='albums')
     photos = models.ManyToManyField(Photo, related_name='albums')
     cover = models.ForeignKey('Photo', on_delete=models.CASCADE, related_name='+', null=True, blank=True)
@@ -43,4 +48,5 @@ class Album(models.Model):
     )
 
     def __str__(self):
+        """String."""
         return '{}'.format(self.title)

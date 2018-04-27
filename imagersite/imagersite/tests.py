@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 
 class BasicViewTests(TestCase):
     """Test view routing."""
+
     def setup(self):
         """Setup client."""
         self.client = Client()

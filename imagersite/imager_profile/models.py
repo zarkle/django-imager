@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 
 class ImagerProfile(models.Model):
-    """Profile model"""
+    """Profile model."""
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
@@ -33,9 +34,10 @@ class ImagerProfile(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
+        """String."""
         return self.user.username
 
     @classmethod
     def active(cls):
-        """filter for active accounts"""
+        """Filter for active accounts."""
         return cls.objects.filter(is_active=True)

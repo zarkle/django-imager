@@ -3,8 +3,8 @@ from imager_images.models import Photo
 import random
 
 
-# Create your views here.
 def home_view(request):
+    """Home view controller."""
     all_photos = Photo.objects.filter(published='PUBLIC')
     try:
         one_photo = random.choice(all_photos)

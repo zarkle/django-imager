@@ -4,6 +4,7 @@ from .models import ImagerProfile
 
 
 def profile_view(request, username=None):
+    """Profile view controller."""
     owner = False
 
     if not username:
