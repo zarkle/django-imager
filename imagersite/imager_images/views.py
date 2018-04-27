@@ -9,3 +9,15 @@ def library_view(request):
     total_photos = Photo.objects.filter(user__username=username)
 
     return render(request, 'imager_images/library.html', {'albums': total_albums, 'photos': total_photos})
+
+
+def album_view(request):
+    total_albums = Album.objects.filter(published='PUBLIC')
+
+    return render(request, 'imager_images/album.html', {'albums': total_albums})
+
+
+def photo_view(request):
+    total_photos = Photo.objects.filter(published='PUBLIC')
+
+    return render(request, 'imager_images/photos.html', {'photos': total_photos})
