@@ -41,3 +41,9 @@ class ImagerProfile(models.Model):
     def active(cls):
         """Filter for active accounts."""
         return cls.objects.filter(is_active=True)
+
+# @receiver(models.signals.post_save, sender=User)
+# def create_profile(sender, **kwargs):
+#     if kwargs['created']:
+#         profile = ShopperProfile(user=kwargs['instance'])
+#         profile.save()
