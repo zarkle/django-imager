@@ -1,5 +1,4 @@
 {% extends "generic/base.html" %}
-{% load thumbnail %}
 
 {% block content %}
 {% if user.is_authenticated %}
@@ -30,7 +29,6 @@
           <li>Private: {{ albums_private }}</li>
         </ul>
     </ul>
-    <a href="[% url "settings" username=user.username %}">Edit Profile</a>
     {% else %}
     {% for photo in photos %}
     <img src="{{ photo.image.url }}">

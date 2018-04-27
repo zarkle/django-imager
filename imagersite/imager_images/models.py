@@ -41,3 +41,6 @@ class Album(models.Model):
             ('PUBLIC', 'Public'),
         )
     )
+
+    def __str__(self):
+        return '{}'.format(self.title)
