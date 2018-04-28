@@ -8,7 +8,7 @@ class BasicViewTests(TestCase):
     """Test view routing."""
 
     def setup(self):
-        """Setup client."""
+        """Create client."""
         self.client = Client()
 
     def test_home_route(self):
@@ -88,7 +88,14 @@ class BasicViewTests(TestCase):
 
     def test_register_user(self):
         """Test for user registration."""
-        response = self.client.post(reverse_lazy('registration_register'), {'username': 'meow', 'password1': 'pass1234', 'password2': 'pass1234', 'email': 'meow@meow.com'}, follow=True)
+        response = self.client.post(
+            reverse_lazy('registration_register'),
+            {
+                'username': 'meow',
+                'password1': 'pass1234',
+                'password2': 'pass1234',
+                'email': 'meow@meow.com'
+            }, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'registration/registration_complete.html')
         self.assertEqual(response.templates[1].name, 'generic/base.html')

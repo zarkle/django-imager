@@ -9,7 +9,8 @@ def library_view(request):
     total_albums = Album.objects.filter(user__username=username)
     total_photos = Photo.objects.filter(user__username=username)
 
-    return render(request, 'imager_images/library.html', {'albums': total_albums, 'photos': total_photos})
+    return render(
+        request, 'imager_images/library.html', {'albums': total_albums, 'photos': total_photos})
 
 
 def album_view(request):

@@ -1,4 +1,5 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory, Client
+from django.urls import reverse_lazy
 from .models import Photo, Album, User
 import factory
 from random import choice
@@ -65,9 +66,23 @@ class PhotoUnitTests(TestCase):
     def setUpClass(cls):
         """Set up test database with one user who has 5 photos over 2 albums."""
         super(TestCase, cls)
-        user = UserFactory.create()
-        user.set_password(factory.Faker('password'))
+        # user = UserFactory.create()
+        # user.set_password(factory.Faker('password'))
+        # user.save()
+        cls.request = RequestFactory()
+        user = UserFactory(username='test', email='test@test.com')
+        user.set_password('test1234')
         user.save()
+        user.profile.bio = 'test'
+        user.profile.phone = '1234'
+        user.profile.location = 'wa'
+        user.profile.website = 'url.com'
+        user.profile.fee = '3'
+        user.profile.camera = 'XLR'
+        user.profile.services = 'weddings'
+        user.profile.photostyles = 'night'
+        user.profile.save()
+        cls.test_user = user
 
         album = AlbumFactory.create(user=user)
         album.save()
@@ -175,3 +190,55 @@ class PhotoUnitTests(TestCase):
         album, album2 = album[0], album[1]
         self.assertEqual(2, album.photos.count())
         self.assertEqual(3, album2.photos.count())
+
+    def test_library_view(self):
+        """Test library route."""
+        from imager_images.views import library_view
+        request = self.request.get('')
+        request.user = self.test_user
+        response = library_view(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_profile_route(self):
+        """Test profile route."""
+        self.client.force_login(self.test_user)
+        response = self.client.get(reverse_lazy('profile'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_profile_user_route(self):
+        """Test specific profile route."""
+        self.client.force_login(self.test_user)
+        response = self.client.get('/profile/{}'.format(self.test_user.username))
+        self.assertEqual(response.status_code, 200)
+
+    def test_album_view(self):
+        """Test album route."""
+        from imager_images.views import album_view
+        request = self.request.get('')
+        request.user = self.test_user
+        response = album_view(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_album_detail_view(self):
+        """Test album detail route."""
+        from imager_images.views import album_detail_view
+        request = self.request.get('')
+        request.user = self.test_user
+        response = album_detail_view(request, id=1)
+        self.assertEqual(response.status_code, 200)
+
+    def test_photo_view(self):
+        """Test photo route."""
+        from imager_images.views import photo_view
+        request = self.request.get('')
+        request.user = self.test_user
+        response = photo_view(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_photo_detail_view(self):
+        """Test phto detail route."""
+        from imager_images.views import photo_detail_view
+        request = self.request.get('')
+        request.user = self.test_user
+        response = photo_detail_view(request, id=1)
+        self.assertEqual(response.status_code, 200)

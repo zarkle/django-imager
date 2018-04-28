@@ -24,7 +24,7 @@ def profile_view(request, username=None):
     if not owner:
         total_photos = Photo.objects.filter(published='PUBLIC', user__username=username)
         total_albums = Album.objects.filter(published='PUBLIC', user__username=username)
-        albums_private = albums_public = photos_private = photos_public = 0
+        albums_private = photos_private = 0
 
     context = {
         'profile': profile,

@@ -9,28 +9,26 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         """Meta."""
+
         model = User
 
     username = factory.Faker('user_name')
     email = factory.Faker('email')
 
 
-class ProfileFactory(factory.django.DjangoModelFactory):
-    """Test profile."""
-
-    class Meta:
-        """Meta."""
-
-        model = ImagerProfile
-
-    bio = factory.Faker('paragraph')
-    phone = factory.Faker('phone_number')
-    location = factory.Faker('city')
-    website = factory.Faker('url')
-    fee = uniform(0.00, 5.00)
-    camera = choice(['DSLR', 'M', 'AC', 'SLR'])
-    services = choice(['weddings', 'headshots', 'landscape'])
-    photostyles = choice(['night', 'macro', '3d'])
+def populate_profile(user, **kwargs):
+    """Populate profile."""
+    user.profile.bio = kwargs['bio'] if 'bio' in kwargs else factory.Faker('paragraph')
+    user.profile.phone = kwargs['phone'] if 'phone' in kwargs else factory.Faker('phone_number')
+    user.profile.location = kwargs['location'] if 'location' in kwargs else factory.Faker('city')
+    user.profile.website = kwargs['website'] if 'website' in kwargs else factory.Faker('url')
+    user.profile.fee = kwargs['fee'] if 'fee' in kwargs else uniform(0.00, 5.00)
+    user.profile.camera = kwargs['camera'] if 'camera' in kwargs else choice(
+        ['DSLR', 'M', 'AC', 'SLR'])
+    user.profile.services = kwargs['services'] if 'services' in kwargs else choice(
+        ['weddings', 'headshots', 'landscape'])
+    user.profile.photostyles = kwargs['photostyles'] if 'photostyles' in kwargs else choice(
+        ['night', 'macro', '3d'])
 
 
 class ProfileUnitTests(TestCase):
@@ -44,9 +42,8 @@ class ProfileUnitTests(TestCase):
             user = UserFactory.create()
             user.set_password(factory.Faker('password'))
             user.save()
-
-            profile = ProfileFactory.create(user=user)
-            profile.save()
+            populate_profile(user, phone='1234567')
+            user.profile.save()
 
     @classmethod
     def tearDownClass(cls):
