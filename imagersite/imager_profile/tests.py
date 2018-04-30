@@ -113,4 +113,10 @@ class ProfileUnitTests(TestCase):
         response = self.client.get(reverse_lazy('profile'))
         self.assertEqual(response.status_code, 302)
 
+    def test_is_active_profile(self):
+        """Test profiles are active."""
+        self.assertTrue(ImagerProfile.objects.first().is_active)
 
+    def test_all_active_profiles(self):
+        """Test profiles are active."""
+        self.assertEqual(ImagerProfile.active.get_queryset().count(), 50)

@@ -236,7 +236,7 @@ class PhotoUnitTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_photo_detail_view(self):
-        """Test phto detail route."""
+        """Test photo detail route."""
         from imager_images.views import photo_detail_view
         request = self.request.get('')
         request.user = self.test_user
