@@ -5,6 +5,7 @@
 {% block content %}
 {% if user.is_authenticated %}
 
+{% if albums %}
 <h2>Albums</h2>
 {% for album in albums %}
 <h3>{{album.title}}</h3>
@@ -16,6 +17,7 @@
 {% endthumbnail %}
 
 {% endfor %}
+{% endif %}
 
 {% if photos %}
 <h2>Photos</h2>
