@@ -2,7 +2,9 @@
 
 **Author**: Beverly and Austin
 
-**Version**: 0.5.0
+**Version**: 0.6.0
+
+[![Build Status](https://travis-ci.org/zarkle/django-imager.svg?branch=master)](https://travis-ci.org/zarkle/django-imager) [![Coverage Status](https://coveralls.io/repos/github/zarkle/django-imager/badge.svg?branch=master)](https://coveralls.io/github/zarkle/django-imager?branch=master)
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 301 class. (i.e. What's your problem domain?) -->
@@ -14,12 +16,13 @@ Clone the repo. Pip install the requirement.txt in your ENV. Create a imager dat
 
 ## Architecture
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
-Python 3, Django 2, FactoryBoy, CSS, HTML, Postgres
+Python 3, Django 2, FactoryBoy, CSS, HTML, Postgres, Travis CI, Coveralls
 
 ## Change Log
 <!-- Use this are to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource.-->
+- 4/30 - Tests, fix is_active profile query
 - 4/27 - Photos/photo, Albums/album, tests
 - 4/26 - Library, Profile, Profile/username, Photos, Albums
 - 4/25 - Photo and Album tables for database.

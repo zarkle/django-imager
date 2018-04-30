@@ -4,6 +4,15 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 
 
+class ActiveImagerProfileManager(models.Manager):
+    """Custom manager for only active profiles."""
+
+    def get_queryset(self):
+        """Limit the queryset to only profiles with active users."""
+        all_profiles = super(ActiveImagerProfileManager, self).get_queryset()
+        return all_profiles.filter(user__is_active=True)
+
+
 class ImagerProfile(models.Model):
     """Profile model."""
 
@@ -41,10 +50,13 @@ class ImagerProfile(models.Model):
         """String."""
         return self.user.username
 
-    @classmethod
-    def active(cls):
-        """Filter for active accounts."""
-        return cls.objects.filter(is_active=True)
+    @property
+    def is_active(self):
+        """Whether the User of the profile is active or not."""
+        return self.user.is_active
+
+    objects = models.Manager()
+    active = ActiveImagerProfileManager()
 
 
 @receiver(models.signals.post_save, sender=User)
