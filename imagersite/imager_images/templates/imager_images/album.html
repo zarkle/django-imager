@@ -1,0 +1,18 @@
+{% extends "generic/base.html" %}
+{% load thumbnail %}
+{% load static %}
+
+{% block content %}
+
+{% for album in albums %}
+<h3>{{album.title}}</h3>
+
+{% thumbnail album.cover.image "500" as image %}
+<a href="{% url "album_detail" id=album.id %}"><img src="{{ image.url }}"></a>
+  {% empty %}
+  <img src="{% static "windows.jpg" %}">
+{% endthumbnail %}
+
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends "generic/base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<section class="profile-container container">
+  {% if user.first_name %}
+  <h3>Welcome, {{ user.first_name }}</h3>
+  {% else %}
+  <h3>Welcome, {{ user.username }}</h3>
+  {% endif %}
+
+  <h2>You are viewing the profile for {{ profile.user.username }}</h2>
+  <p>Last Login: {{ profile.user.last_login }}</p>
+  <p>Member Since: {{ profile.user.date_joined }}</p>
+  <section class="profile-info">
+    {% if profile.user.username == user.username %}
+    <h2>Profile Info</h2>
+
+    <ul>
+      <li>Total Photos: {{ photos.count }}</li>
+        <ul>
+          <li>Public: {{ photos_public }}</li>
+          <li>Private: {{ photos_private }}</li>
+        </ul>
+
+      <li>Total Albums: {{ albums.count }}</li>
+        <ul>
+          <li>Public: {{ albums_public }}</li>
+          <li>Private: {{ albums_private }}</li>
+        </ul>
+    </ul>
+    {% else %}
+    {% for photo in photos %}
+    <img src="{{ photo.image.url }}">
+    {% endfor %}
+    {% endif %}
+  </section>
+
+  <!-- Handle the Product and Photo context that was passed from the view -->
+
+</section>
+{% else %}
+<!-- Shouldn't be able to get here, but just in case -->
+<h3>Please log in to the site</h3>
+{% endif %}
+{% endblock content %}

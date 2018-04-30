@@ -1,0 +1,18 @@
+{% extends "generic/base.html" %}
+
+{% block content %}
+
+<h3>{{photo.title}}</h3>
+
+<img src="{{ photo.image.url }}">
+
+<ul>
+  <li>Description: {{photo.description}}</li>
+  <li>Date Uploaded: {{photo.date_uploaded}}</li>
+  <li>Date Modified: {{photo.date_modified}}</li>
+  <li>Date Published: {{photo.date_published}}</li>
+  <li>Published: {{photo.published}}</li>
+  <li>Owner: {{photo.user.username}}</li>
+</ul>
+
+{% endblock content %}

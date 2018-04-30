@@ -1,0 +1,35 @@
+{% extends "generic/base.html" %}
+{% load thumbnail %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+{% if albums %}
+<h2>Albums</h2>
+{% for album in albums %}
+<h3>{{album.title}}</h3>
+
+{% thumbnail album.cover.image "300" as image %}
+<a href="{% url "album_detail" id=album.id %}"><img src="{{ image.url }}"></a>
+  {% empty %}
+  <a href="{% url "album_detail" id=album.id %}"><img src="{% static "windows.jpg" %}"></a>
+{% endthumbnail %}
+
+{% endfor %}
+{% endif %}
+
+{% if photos %}
+<h2>Photos</h2>
+{% for photo in photos %}
+<h3>{{photo.title}}</h3>
+
+{% thumbnail photo.image "250" as image %}
+<a href="{% url "photo_detail" id=photo.id %}"><img src="{{ image.url }}"></a>
+{% endthumbnail %}
+
+{% endfor %}
+{% endif %}
+
+{% endif %}
+{% endblock content %}
