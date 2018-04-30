@@ -40,7 +40,7 @@ class PhotoFactory(factory.django.DjangoModelFactory):
     date_uploaded = factory.Faker('date')
     date_modified = factory.Faker('date')
     date_published = factory.Faker('date')
-    published = choice(['private', 'shared', 'public'])
+    published = 'PUBLIC'
 
 
 class AlbumFactory(factory.django.DjangoModelFactory):
@@ -56,7 +56,7 @@ class AlbumFactory(factory.django.DjangoModelFactory):
     date_created = factory.Faker('date')
     date_modified = factory.Faker('date')
     date_published = factory.Faker('date')
-    published = choice(['private', 'shared', 'public'])
+    published = 'PUBLIC'
 
 
 class PhotoUnitTests(TestCase):
@@ -241,4 +241,17 @@ class PhotoUnitTests(TestCase):
         request = self.request.get('')
         request.user = self.test_user
         response = photo_detail_view(request, id=1)
+        self.assertEqual(response.status_code, 200)
+
+    def test_string_photo(self):
+        """Test string magic method on Photo class."""
+        self.assertIsNotNone(str(Photo.objects.first()))
+
+    def test_string_album(self):
+        """Test string magic method on Album class."""
+        self.assertIsNotNone(str(Album.objects.first()))
+
+    def test_home_route_with_photo(self):
+        """Route to home."""
+        response = self.client.get('/')
         self.assertEqual(response.status_code, 200)

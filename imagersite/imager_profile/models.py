@@ -41,10 +41,10 @@ class ImagerProfile(models.Model):
         """String."""
         return self.user.username
 
-    @classmethod
-    def active(cls):
-        """Filter for active accounts."""
-        return cls.objects.filter(is_active=True)
+    # @classmethod
+    # def active(cls):
+    #     """Filter for active accounts."""
+    #     return cls.objects.filter(is_active=True)
 
 
 @receiver(models.signals.post_save, sender=User)

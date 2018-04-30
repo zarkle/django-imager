@@ -2,6 +2,7 @@ from django.test import TestCase
 from .models import ImagerProfile, User
 import factory
 from random import uniform, choice
+from django.urls import reverse_lazy
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -102,3 +103,14 @@ class ProfileUnitTests(TestCase):
         """Test profile has photostyles."""
         prof = ImagerProfile.objects.first()
         self.assertIsInstance(prof.photostyles, list)
+
+    def test_string_profile(self):
+        """Test string magic method on Profile class."""
+        self.assertIsNotNone(str(ImagerProfile.objects.first()))
+
+    def test_profile_not_logged_in(self):
+        """Test profile route."""
+        response = self.client.get(reverse_lazy('profile'))
+        self.assertEqual(response.status_code, 302)
+
+
