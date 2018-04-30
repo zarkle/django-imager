@@ -31,7 +31,6 @@ Python 3, Django 2, FactoryBoy, CSS, HTML, Postgres, Travis CI, Coveralls
 
 
 ## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 - https://codepen.io/geeksmarter/pen/akGJbm
 - Scott Schmidt
 - Megan Flood
