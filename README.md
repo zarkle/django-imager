@@ -1,4 +1,4 @@
-# django-imager
+# Django-Imager App
 
 **Author**: Beverly and Austin
 
@@ -8,7 +8,7 @@
 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for a Code Fellows 301 class. (i.e. What's your problem domain?) -->
-Django replica of imgur style website (image sharing).
+Django replica of imgur style website (image sharing) to learn how to use the Django framework.
 
 ## Getting Started
 <!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
