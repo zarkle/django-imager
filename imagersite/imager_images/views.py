@@ -30,7 +30,7 @@ def photo_view(request):
 def album_detail_view(request, id):
     """Album detail view controller."""
     album = Album.objects.filter(id=id).first()
-    album = album.photos.all()
+    album = album.photos.filter(published='PUBLIC')
     return render(request, 'imager_images/album_detail.html', {'album': album})
 
 
