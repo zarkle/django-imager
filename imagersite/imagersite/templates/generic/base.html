@@ -19,9 +19,9 @@
         <nav>
           <ul>
             <li><a href="{% url "home" %}">Home</a></li>
+            {% if user.is_authenticated %}
             <li><a href="{% url "albums" %}">Albums</a></li>
             <li><a href="{% url "photos" %}">Photos</a></li>
-            {% if user.is_authenticated %}
             <li><a href="{% url "profile" %}">Profile</a></li>
             <li><a href="{% url "library" %}">Library</a></li>
             {% if user.is_superuser %}

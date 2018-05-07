@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'imager_profile',
     'imager_images',
     'multiselectfield',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    'coverage'
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,12 @@ ACCOUNT_ACTIVATION_DAYS = 1
 LOGIN_REDIRECT_URL = '/profile'
 if DEBUG:  # pragma: no cover
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# Email Settings
+EMAIL_HOST = os.environ.get('EMAIL_HOST', None)
+EMAIL_PORT = os.environ.get('EMAIL_PORT', None)
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', None)
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', None)
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', None)
+EMAIL_TIMEOUT = os.environ.get('EMAIL_TIMEOUT', None)
