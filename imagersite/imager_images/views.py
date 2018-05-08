@@ -1,7 +1,5 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, DetailView
 from imager_images.models import Album, Photo
-# from sorl.thumbnail import get_thumbnail
 
 
 class LibraryView(ListView):
@@ -32,28 +30,82 @@ class LibraryView(ListView):
         return context
 
 
-def album_view(request):
-    """Album view controller."""
-    total_albums = Album.objects.filter(published='PUBLIC')
+class AlbumView(ListView):
+    """Album view class."""
 
-    return render(request, 'imager_images/album.html', {'albums': total_albums})
+    template_name = 'imager_images/album.html'
+
+    context_object_name = 'albums'
+
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(*args, **kwargs)
+
+    def get_queryset(self):
+        return Album.objects.filter(published='PUBLIC')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 
-def photo_view(request):
-    """Photo view controller."""
-    total_photos = Photo.objects.filter(published='PUBLIC')
+class PhotoView(ListView):
+    """Photo view class."""
 
-    return render(request, 'imager_images/photos.html', {'photos': total_photos})
+    template_name = 'imager_images/photos.html'
+
+    context_object_name = 'photos'
+
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(*args, **kwargs)
+
+    def get_queryset(self):
+        return Photo.objects.filter(published='PUBLIC')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 
-def album_detail_view(request, id):
-    """Album detail view controller."""
-    album = Album.objects.filter(id=id).first()
-    album = album.photos.filter(published='PUBLIC')
-    return render(request, 'imager_images/album_detail.html', {'album': album})
+class AlbumDetailView(ListView):
+    """Album detail view class."""
+
+    template_name = 'imager_images/album_detail.html'
+
+    context_object_name = 'album'
+
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(*args, **kwargs)
+
+    def get_queryset(self):
+        album = Album.objects.filter(id=self.kwargs['id']).first()
+        return album.photos.filter(published='PUBLIC')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 
-def photo_detail_view(request, id):
-    """Photo detail view controller."""
-    photo = Photo.objects.filter(id=id).first()
-    return render(request, 'imager_images/photo_detail.html', {'photo': photo})
+class PhotoDetailView(DetailView):
+    """Photo detail view class."""
+
+    template_name = 'imager_images/photo_detail.html'
+
+    context_object_name = 'photo'
+
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(*args, **kwargs)
+
+    def get_object(self):
+        return Photo.objects.filter(id=self.kwargs['id']).first()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
