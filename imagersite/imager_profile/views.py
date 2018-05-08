@@ -9,14 +9,17 @@ class ProfileView(TemplateView):
 
     template_name = 'imager_profile/profile.html'
 
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         owner = False
 
         if 'username' not in self.kwargs:
             username = self.request.user.get_username()
             owner = True
-            if username == '':
-                return redirect('home')
         else:
             username = self.kwargs['username']
 
@@ -35,3 +38,4 @@ class ProfileView(TemplateView):
             context['albums_private'] = context['photos_private'] = 0
 
         return context
+
