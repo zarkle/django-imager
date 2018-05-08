@@ -1,16 +1,35 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, CreateView
 from imager_images.models import Album, Photo
 # from sorl.thumbnail import get_thumbnail
 
 
-def library_view(request):
-    """Library view controller."""
-    username = request.user.get_username()
-    total_albums = Album.objects.filter(user__username=username)
-    total_photos = Photo.objects.filter(user__username=username)
+class LibraryView(ListView):
+    """Library view class."""
 
-    return render(
-        request, 'imager_images/library.html', {'albums': total_albums, 'photos': total_photos})
+    template_name = 'imager_images/library.html'
+
+    context_object_name = 'library'
+
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(*args, **kwargs)
+
+    def get_queryset(self):
+        username = self.request.user.get_username()
+        total_albums = Album.objects.filter(user__username=username)
+        total_photos = Photo.objects.filter(user__username=username)
+
+        return [total_albums, total_photos]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['albums'] = context['library'][0]
+        context['photos'] = context['library'][1]
+        del context['library']
+
+        return context
 
 
 def album_view(request):
