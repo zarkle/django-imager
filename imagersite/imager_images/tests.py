@@ -193,9 +193,10 @@ class PhotoUnitTests(TestCase):
 
     def test_library_view(self):
         """Test library route."""
-        from imager_images.views import library_view
+        from imager_images.views import LibraryView
         request = self.request.get('')
         request.user = self.test_user
+        library_view = LibraryView.as_view()
         response = library_view(request)
         self.assertEqual(response.status_code, 200)
 
@@ -213,33 +214,37 @@ class PhotoUnitTests(TestCase):
 
     def test_album_view(self):
         """Test album route."""
-        from imager_images.views import album_view
+        from imager_images.views import AlbumView
         request = self.request.get('')
         request.user = self.test_user
+        album_view = AlbumView.as_view()
         response = album_view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_album_detail_view(self):
         """Test album detail route."""
-        from imager_images.views import album_detail_view
+        from imager_images.views import AlbumDetailView
         request = self.request.get('')
         request.user = self.test_user
+        album_detail_view = AlbumDetailView.as_view()
         response = album_detail_view(request, id=1)
         self.assertEqual(response.status_code, 200)
 
     def test_photo_view(self):
         """Test photo route."""
-        from imager_images.views import photo_view
+        from imager_images.views import PhotoView
         request = self.request.get('')
         request.user = self.test_user
+        photo_view = PhotoView.as_view()
         response = photo_view(request)
         self.assertEqual(response.status_code, 200)
 
     def test_photo_detail_view(self):
         """Test photo detail route."""
-        from imager_images.views import photo_detail_view
+        from imager_images.views import PhotoDetailView
         request = self.request.get('')
         request.user = self.test_user
+        photo_detail_view = PhotoDetailView.as_view()
         response = photo_detail_view(request, id=1)
         self.assertEqual(response.status_code, 200)
 
@@ -255,3 +260,5 @@ class PhotoUnitTests(TestCase):
         """Route to home."""
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
+
+

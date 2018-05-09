@@ -7,6 +7,7 @@ class AlbumForm(ModelForm):
 
     class Meta:
         """Meta."""
+
         model = Album
         fields = ['photos', 'cover', 'title', 'description', 'published']
 
