@@ -1,41 +1,49 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from imager_images.models import Album, Photo
 from .models import ImagerProfile
+from django.views.generic import ListView
 
 
-def profile_view(request, username=None):
-    """Profile view controller."""
-    owner = False
+class ProfileView(ListView):
+    """Profile view."""
 
-    if not username:
-        username = request.user.get_username()
-        owner = True
-        if username == '':
+    template_name = 'imager_profile/profile.html'
+
+    context_object_name = 'one_profile'
+
+    def get(self, *args, **kwargs):
+        """Get."""
+        if not self.request.user.is_authenticated:
             return redirect('home')
+        return super().get(*args, **kwargs)
 
-    profile = get_object_or_404(ImagerProfile, user__username=username)
-    total_albums = Album.objects.filter(user__username=username)
-    total_photos = Photo.objects.filter(user__username=username)
-    albums_private = total_albums.filter(published='PRIVATE').count()
-    albums_public = total_albums.filter(published='PUBLIC').count()
-    photos_private = total_photos.filter(published='PRIVATE').count()
-    photos_public = total_photos.filter(published='PUBLIC').count()
+    def get_queryset(self):
+        """Get queryset."""
+        owner = False
+        if 'username' not in self.kwargs:
+            username = self.request.user.get_username()
+            owner = True
+        else:
+            username = self.kwargs['username']
 
-    if not owner:
-        total_photos = Photo.objects.filter(published='PUBLIC', user__username=username)
-        total_albums = Album.objects.filter(published='PUBLIC', user__username=username)
-        albums_private = photos_private = 0
+        profile = get_object_or_404(ImagerProfile, user__username=username)
+        if not owner:
+            photos = Photo.objects.filter(published='PUBLIC', user__username=username)
+            albums = Album.objects.filter(published='PUBLIC', user__username=username)
+        else:
+            albums = Album.objects.filter(user__username=username)
+            photos = Photo.objects.filter(user__username=username)
+        return [profile, albums, photos]
 
-    context = {
-        'profile': profile,
-        'albums': total_albums,
-        'photos': total_photos,
-        'albums_private': albums_private,
-        'albums_public': albums_public,
-        'photos_private': photos_private,
-        'photos_public': photos_public,
+    def get_context_data(self, **kwargs):
+        """Get context data."""
+        context = super().get_context_data(**kwargs)
+        context['profile'] = context['one_profile'][0]
+        context['albums'] = context['one_profile'][1]
+        context['photos'] = context['one_profile'][2]
+        context['albums_private'] = context['albums'].filter(published='PRIVATE').count()
+        context['albums_public'] = context['albums'].filter(published='PUBLIC').count()
+        context['photos_private'] = context['photos'].filter(published='PRIVATE').count()
+        context['photos_public'] = context['photos'].filter(published='PUBLIC').count()
 
-
-    }
-
-    return render(request, 'imager_profile/profile.html', context)
+        return context
