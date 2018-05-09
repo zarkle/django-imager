@@ -261,4 +261,47 @@ class PhotoUnitTests(TestCase):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
 
+    def test_library_view_redirect(self):
+        """Test library route with no user logged in."""
+        response = self.client.get(reverse_lazy('library'))
+        self.assertEqual(response.status_code, 302)
 
+    def test_album_view_redirect(self):
+        """Test album route with no user logged in."""
+        response = self.client.get(reverse_lazy('albums'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_photo_view_redirect(self):
+        """Test photo route with no user logged in."""
+        response = self.client.get(reverse_lazy('photos'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_add_album_view_get_redirect(self):
+        """Test add album route with no user logged in."""
+        response = self.client.get(reverse_lazy('add_album'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_add_photo_view_get_redirect(self):
+        """Test add photo route with no user logged in."""
+        response = self.client.get(reverse_lazy('add_photo'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_add_album_view_post_redirect(self):
+        """Test add album route with no user logged in."""
+        response = self.client.post(reverse_lazy('add_album'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_add_photo_view_post_redirect(self):
+        """Test add photo route with no user logged in."""
+        response = self.client.post(reverse_lazy('add_photo'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_album_detail_view_redirect(self):
+        """Test album detail route with no user logged in."""
+        response = self.client.get(reverse_lazy('album_detail', kwargs={'id': 1}))
+        self.assertEqual(response.status_code, 302)
+
+    def test_photo_detail_view_redirect(self):
+        """Test photo detail route with no user logged in."""
+        response = self.client.get(reverse_lazy('photo_detail', kwargs={'id': 1}))
+        self.assertEqual(response.status_code, 302)
