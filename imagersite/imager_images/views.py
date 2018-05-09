@@ -1,6 +1,8 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from imager_images.models import Album, Photo
+from imager_images.forms import AlbumForm
+from django.urls import reverse_lazy
 
 
 class LibraryView(ListView):
@@ -110,3 +112,54 @@ class PhotoDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class AddPhotoView(CreateView):
+    """Add photo view."""
+
+    template_name = 'imager_images/add_photo.html'
+    model = Photo
+    fields = ['image', 'title', 'description', 'published']
+    success_url = reverse_lazy('library')
+
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().post(*args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class AddAlbumView(CreateView):
+    """Add album view."""
+
+    template_name = 'imager_images/add_album.html'
+    model = Album
+    form_class = AlbumForm
+    success_url = reverse_lazy('library')
+
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().get(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('home')
+        return super().post(*args, **kwargs)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'username': self.request.user.username})
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

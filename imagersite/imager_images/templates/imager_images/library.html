@@ -18,6 +18,7 @@
 
 {% endfor %}
 {% endif %}
+<p><a href="{% url "add_album" %}"><button>Add Album</button></a></p>
 
 {% if photos %}
 <h2>Photos</h2>
@@ -30,6 +31,7 @@
 
 {% endfor %}
 {% endif %}
+<p><a href="{% url "add_photo" %}"><button>Add Photo</button></a></p>
 
 {% endif %}
 {% endblock content %}
