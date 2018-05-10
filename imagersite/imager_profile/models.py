@@ -35,7 +35,6 @@ class ImagerProfile(models.Model):
             ('landscape', 'LandScape'),
             ('portraits', 'Portraits'),
             ('art', 'Art')))
-
     photostyles = MultiSelectField(
         choices=(
             ('blackandwhite', 'Black and White'),

@@ -14,6 +14,7 @@
   <p>Member Since: {{ profile.user.date_joined }}</p>
   <section class="profile-info">
     {% if profile.user.username == user.username %}
+    <div class="edit-button"><a href="{% url "edit_profile" username=user.username %}"><button>Edit Profile</button></a></div>
     <h3>Profile Info</h3>
     <ul>
       <li>Total Photos: {{ photos.count }}</li>
