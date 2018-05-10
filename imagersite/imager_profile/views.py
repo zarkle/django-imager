@@ -49,8 +49,9 @@ class ProfileView(LoginRequiredMixin, ListView):
 
         return context
 
+
 class EditProfileView(LoginRequiredMixin, UpdateView):
-    """."""
+    """Edit Profile view."""
 
     template_name = 'imager_profile/edit_profile.html'
     model = ImagerProfile
@@ -61,23 +62,23 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
     slug_field = 'user__username'
 
     def get(self, *args, **kwargs):
-        """."""
+        """Get."""
         self.kwargs['username'] = self.request.user.get_username()
         return super().get(*args, **kwargs)
 
     def post(self, *args, **kwargs):
-        """."""
+        """Post."""
         self.kwargs['username'] = self.request.user.get_username()
         return super().post(*args, **kwargs)
 
     def get_form_kwargs(self):
-        """."""
+        """Get form kwargs."""
         kwargs = super().get_form_kwargs()
         kwargs.update({'username': self.request.user.get_username()})
         return kwargs
 
     def form_valid(self, form):
-        """."""
+        """Validate form."""
         form.instance.user.email = form.data['email']
         form.instance.user.first_name = form.data['first_name']
         form.instance.user.last_name = form.data['last_name']

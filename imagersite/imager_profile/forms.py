@@ -4,6 +4,8 @@ from django.forms import ModelForm, CharField, widgets
 
 
 class ProfileEditForm(ModelForm):
+    """Edit profile form."""
+
     email = CharField(
         max_length=User._meta.get_field('email').max_length,
         widget=widgets.EmailInput())
@@ -17,10 +19,13 @@ class ProfileEditForm(ModelForm):
         required=False)
 
     class Meta:
+        """Meta."""
+
         model = ImagerProfile
         fields = ['email', 'first_name', 'last_name', 'bio', 'phone', 'location', 'website', 'fee', 'camera', 'services', 'photostyles']
 
     def __init__(self, *args, **kwargs):
+        """Init."""
         username = kwargs.pop('username')
         super().__init__(*args, **kwargs)
         self.fields['email'].initial = User.objects.get(username=username).email
