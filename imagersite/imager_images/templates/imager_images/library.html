@@ -18,6 +18,8 @@
   <div class="image"><a href="{% url "album_detail" id=album.id %}"><img src="{% static "windows.jpg" %}"></a></div>
 {% endthumbnail %}
 
+<div class="edit-button"><a href="{% url "edit_album" id=album.id %}"><button>Edit Album</button></a></div>
+
 {% endfor %}
 {% endif %}
 
@@ -31,6 +33,8 @@
 {% thumbnail photo.image "250" as image %}
 <div class="image"><a href="{% url "photo_detail" id=photo.id %}"><img src="{{ image.url }}"></a></div>
 {% endthumbnail %}
+
+<div class="edit-button"><a href="{% url "edit_photo" id=photo.id %}"><button>Edit Photo</button></a></div>
 
 {% endfor %}
 {% endif %}

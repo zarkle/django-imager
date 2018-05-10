@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from imager_images.models import Album, Photo
 from imager_images.forms import AlbumForm
 from django.urls import reverse_lazy
@@ -133,4 +133,48 @@ class AddAlbumView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         """Validate form."""
         form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class EditAlbumView(LoginRequiredMixin, UpdateView):
+    """Edit album view."""
+
+    template_name = 'imager_images/edit_album.html'
+    model = Album
+    # form_class = AlbumEditForm
+    success_url = reverse_lazy('library')
+    login_url = reverse_lazy('auth_login')
+    slug_url_kwarg = 'id'
+    slug_field = 'id'
+    fields = ['photos', 'cover', 'title', 'description', 'published']
+
+    def get_form_kwargs(self):
+        """Get form kwargs."""
+        kwargs = super().get_form_kwargs()
+        return kwargs
+
+    def form_valid(self, form):
+        """Validate form."""
+        return super().form_valid(form)
+
+
+class EditPhotoView(LoginRequiredMixin, UpdateView):
+    """Edit photo view."""
+
+    template_name = 'imager_images/edit_photo.html'
+    model = Photo
+    # form_class = PhotoEditForm
+    success_url = reverse_lazy('library')
+    login_url = reverse_lazy('auth_login')
+    slug_url_kwarg = 'id'
+    slug_field = 'id'
+    fields = ['image', 'title', 'description', 'published']
+
+    def get_form_kwargs(self):
+        """Get form kwargs."""
+        kwargs = super().get_form_kwargs()
+        return kwargs
+
+    def form_valid(self, form):
+        """Validate form."""
         return super().form_valid(form)

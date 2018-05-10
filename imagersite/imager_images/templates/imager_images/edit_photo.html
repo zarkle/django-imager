@@ -1,0 +1,13 @@
+{% extends "generic/base.html" %}
+
+{% block content %}
+
+<div class="photo-add container">
+  <h2>Edit Photo</h2>
+  <form class="photo-add-form" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Photo</button>
+  </form>
+</div>
+{% endblock content %}
