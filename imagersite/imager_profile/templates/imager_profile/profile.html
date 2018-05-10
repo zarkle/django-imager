@@ -4,18 +4,17 @@
 {% if user.is_authenticated %}
 <section class="profile-container container">
   {% if user.first_name %}
-  <h3>Welcome, {{ user.first_name }}</h3>
+  <h2>Welcome, {{ user.first_name }}</h2>
   {% else %}
-  <h3>Welcome, {{ user.username }}</h3>
+  <h2>Welcome, {{ user.username }}</h2>
   {% endif %}
 
-  <h2>You are viewing the profile for {{ profile.user.username }}</h2>
+  <h3>You are viewing the profile for {{ profile.user.username }}</h3>
   <p>Last Login: {{ profile.user.last_login }}</p>
   <p>Member Since: {{ profile.user.date_joined }}</p>
   <section class="profile-info">
     {% if profile.user.username == user.username %}
-    <h2>Profile Info</h2>
-
+    <h3>Profile Info</h3>
     <ul>
       <li>Total Photos: {{ photos.count }}</li>
         <ul>
