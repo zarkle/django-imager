@@ -1,6 +1,6 @@
 
 # Created by https://www.gitignore.io/api/code,pydev,macos,linux,python,windows
-
+django-imager/imagersite/static
 ### Code ###
 # Visual Studio Code - https://code.visualstudio.com/
 .settings/
