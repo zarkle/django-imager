@@ -5,33 +5,35 @@
 {% block content %}
 {% if user.is_authenticated %}
 
+<h2 class="green">Albums</h2>
+<div class="add"><a href="{% url "add_album" %}"><button>Add Album</button></a></div>
+
 {% if albums %}
-<h2>Albums</h2>
 {% for album in albums %}
-<h3>{{album.title}}</h3>
+<h4 class="title">{{album.title}}</h4>
 
 {% thumbnail album.cover.image "300" as image %}
-<a href="{% url "album_detail" id=album.id %}"><img src="{{ image.url }}"></a>
+  <div class="image"><a href="{% url "album_detail" id=album.id %}"><img src="{{ image.url }}"></a></div>
   {% empty %}
-  <a href="{% url "album_detail" id=album.id %}"><img src="{% static "windows.jpg" %}"></a>
+  <div class="image"><a href="{% url "album_detail" id=album.id %}"><img src="{% static "windows.jpg" %}"></a></div>
 {% endthumbnail %}
 
 {% endfor %}
 {% endif %}
-<p><a href="{% url "add_album" %}"><button>Add Album</button></a></p>
+
+<h2 class="green">Photos</h2>
+<div class="add"><a href="{% url "add_photo" %}"><button>Add Photo</button></a></div>
 
 {% if photos %}
-<h2>Photos</h2>
 {% for photo in photos %}
-<h3>{{photo.title}}</h3>
+<h4 class="title">{{photo.title}}</h4>
 
 {% thumbnail photo.image "250" as image %}
-<a href="{% url "photo_detail" id=photo.id %}"><img src="{{ image.url }}"></a>
+<div class="image"><a href="{% url "photo_detail" id=photo.id %}"><img src="{{ image.url }}"></a></div>
 {% endthumbnail %}
 
 {% endfor %}
 {% endif %}
-<p><a href="{% url "add_photo" %}"><button>Add Photo</button></a></p>
 
 {% endif %}
 {% endblock content %}

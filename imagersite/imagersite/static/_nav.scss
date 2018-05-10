@@ -1,0 +1,19 @@
+nav{
+    background-color: $green;
+    padding: 20px;
+
+    ul {
+        text-align: center;
+    }
+
+    li {
+        display: inline;
+        padding: 7px;
+        font-size: $font * .7;
+    }
+
+    a {
+        text-decoration: none;
+        color: $white;
+    }
+}

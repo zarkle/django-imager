@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'imager_images',
     'multiselectfield',
     'sorl.thumbnail',
-    'coverage'
+    'coverage',
+    'sass_processor',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'MEDIA')
 
+SASS_PROCESSOR_ROOT = STATIC_ROOT
 
 # Django Registration Settings
 ACCOUNT_ACTIVATION_DAYS = 1
