@@ -2,19 +2,19 @@ from django.shortcuts import redirect, get_object_or_404
 from imager_images.models import Album, Photo
 from .models import ImagerProfile
 from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
-class ProfileView(ListView):
+class ProfileView(LoginRequiredMixin, ListView):
     """Profile view."""
 
     template_name = 'imager_profile/profile.html'
-
     context_object_name = 'one_profile'
+    login_url = reverse_lazy('auth_login')
 
     def get(self, *args, **kwargs):
         """Get."""
-        if not self.request.user.is_authenticated:
-            return redirect('home')
         return super().get(*args, **kwargs)
 
     def get_queryset(self):

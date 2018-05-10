@@ -4,7 +4,7 @@
 {% if user.is_authenticated %}
 <section class="profile-container container">
   {% if user.first_name %}
-  <h2>Welcome, {{ user.first_name }}</h2>
+  <h2>Welcome {{ user.first_name }}!</h2>
   {% else %}
   <h2>Welcome, {{ user.username }}</h2>
   {% endif %}
