@@ -4,7 +4,7 @@
 {% if user.is_authenticated %}
 <section class="profile-container container">
   {% if user.first_name %}
-  <h2>Welcome, {{ user.first_name }}</h2>
+  <h2>Welcome {{ user.first_name }}!</h2>
   {% else %}
   <h2>Welcome, {{ user.username }}</h2>
   {% endif %}
@@ -14,6 +14,7 @@
   <p>Member Since: {{ profile.user.date_joined }}</p>
   <section class="profile-info">
     {% if profile.user.username == user.username %}
+
     <h3>Profile Info</h3>
     <ul>
       <li>Total Photos: {{ photos.count }}</li>
@@ -28,6 +29,9 @@
           <li>Private: {{ albums_private }}</li>
         </ul>
     </ul>
+
+    <div class="edit-button"><a href="{% url "edit_profile" username=user.username %}"><button>Edit Profile</button></a></div>
+
     {% else %}
     {% for photo in photos %}
     <img src="{{ photo.image.url }}">

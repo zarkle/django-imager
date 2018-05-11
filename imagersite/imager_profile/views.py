@@ -1,20 +1,21 @@
 from django.shortcuts import redirect, get_object_or_404
 from imager_images.models import Album, Photo
 from .models import ImagerProfile
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView
+from imager_profile.forms import ProfileEditForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
-class ProfileView(ListView):
+class ProfileView(LoginRequiredMixin, ListView):
     """Profile view."""
 
     template_name = 'imager_profile/profile.html'
-
     context_object_name = 'one_profile'
+    login_url = reverse_lazy('auth_login')
 
     def get(self, *args, **kwargs):
         """Get."""
-        if not self.request.user.is_authenticated:
-            return redirect('home')
         return super().get(*args, **kwargs)
 
     def get_queryset(self):
@@ -47,3 +48,42 @@ class ProfileView(ListView):
         context['photos_public'] = context['photos'].filter(published='PUBLIC').count()
 
         return context
+
+
+class EditProfileView(LoginRequiredMixin, UpdateView):
+    """Edit Profile view."""
+
+    template_name = 'imager_profile/edit_profile.html'
+    model = ImagerProfile
+    form_class = ProfileEditForm
+    login_url = reverse_lazy('auth_login')
+    success_url = reverse_lazy('profile')
+    slug_url_kwarg = 'username'
+    slug_field = 'user__username'
+
+    def get(self, *args, **kwargs):
+        """Get."""
+        if self.request.user.get_username() != self.kwargs['username']:
+            return redirect('profile')
+        self.kwargs['username'] = self.request.user.get_username()
+        return super().get(*args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        """Post."""
+        self.kwargs['username'] = self.request.user.get_username()
+        return super().post(*args, **kwargs)
+
+    def get_form_kwargs(self):
+        """Get form kwargs."""
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'username': self.request.user.get_username()})
+        return kwargs
+
+    def form_valid(self, form):
+        """Validate form."""
+        form.instance.user.email = form.data['email']
+        form.instance.user.first_name = form.data['first_name']
+        form.instance.user.last_name = form.data['last_name']
+        form.instance.user.save()
+
+        return super().form_valid(form)

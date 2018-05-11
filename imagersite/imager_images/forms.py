@@ -1,9 +1,9 @@
-from django.forms import ModelForm
 from .models import Album, Photo
+from django.forms import ModelForm
 
 
 class AlbumForm(ModelForm):
-    """Add photo form."""
+    """Add album form."""
 
     class Meta:
         """Meta."""

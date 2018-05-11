@@ -1,0 +1,13 @@
+{% extends "generic/base.html" %}
+
+{% block content %}
+
+<div class="album-add container">
+  <h2>Edit Profile</h2>
+  <form class="album-add-form" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Profile</button>
+  </form>
+</div>
+{% endblock content %}
