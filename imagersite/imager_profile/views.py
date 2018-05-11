@@ -63,6 +63,8 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 
     def get(self, *args, **kwargs):
         """Get."""
+        if self.request.user.get_username() != self.kwargs['username']:
+            return redirect('profile')
         self.kwargs['username'] = self.request.user.get_username()
         return super().get(*args, **kwargs)
 

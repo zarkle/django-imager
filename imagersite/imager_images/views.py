@@ -141,12 +141,17 @@ class EditAlbumView(LoginRequiredMixin, UpdateView):
 
     template_name = 'imager_images/edit_album.html'
     model = Album
-    # form_class = AlbumEditForm
     success_url = reverse_lazy('library')
     login_url = reverse_lazy('auth_login')
     slug_url_kwarg = 'id'
     slug_field = 'id'
     fields = ['photos', 'cover', 'title', 'description', 'published']
+
+    def get(self, *args, **kwargs):
+        """Get."""
+        if self.request.user.get_username() != Album.objects.filter(id=kwargs['id']).first().user.username:
+            return redirect('library')
+        return super().get(*args, **kwargs)
 
     def get_form_kwargs(self):
         """Get form kwargs."""
@@ -163,12 +168,17 @@ class EditPhotoView(LoginRequiredMixin, UpdateView):
 
     template_name = 'imager_images/edit_photo.html'
     model = Photo
-    # form_class = PhotoEditForm
     success_url = reverse_lazy('library')
     login_url = reverse_lazy('auth_login')
     slug_url_kwarg = 'id'
     slug_field = 'id'
     fields = ['image', 'title', 'description', 'published']
+
+    def get(self, *args, **kwargs):
+        """Get."""
+        if self.request.user.get_username() != Photo.objects.filter(id=kwargs['id']).first().user.username:
+            return redirect('library')
+        return super().get(*args, **kwargs)
 
     def get_form_kwargs(self):
         """Get form kwargs."""
