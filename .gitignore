@@ -1,6 +1,7 @@
 
 # Created by https://www.gitignore.io/api/code,pydev,macos,linux,python,windows
 /imagersite/static/
+hosts
 
 ### Code ###
 # Visual Studio Code - https://code.visualstudio.com/
