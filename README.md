@@ -3,7 +3,7 @@ Current deployed site: http://ec2-54-218-26-248.us-west-2.compute.amazonaws.com/
 
 **Author**: Beverly and Austin
 
-**Version**: 0.10.0
+**Version**: 0.11.0
 
 [![Build Status](https://travis-ci.org/zarkle/django-imager.svg?branch=master)](https://travis-ci.org/zarkle/django-imager) [![Coverage Status](https://coveralls.io/repos/github/zarkle/django-imager/badge.svg?branch=master)](https://coveralls.io/github/zarkle/django-imager?branch=master)
 
@@ -23,7 +23,8 @@ Python 3, Django 2, CSS/SCSS, HTML, Postgres, Travis CI, Coveralls, gunicorn, ng
 <!-- Use this are to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource.-->
-- 5/10 - Ansible Deployment
+- 5/11 - Ansible Deployment
+- 5/10 - Add functionality to edit photos, edit albums, and edit profile
 - 5/9 - Tests and Sass
 - 5/8 - Refactor views to class-based views and make forms for add photo and add album
 - 5/3 - Deploy on AWS
