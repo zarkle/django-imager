@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('registration.backends.hmac.urls')),
     path('profile/', include('imager_profile.urls')),
     path('images/', include('imager_images.urls')),
+    path('api/', include('imager_api.urls')),
 ]
 
 if settings.DEBUG:  # pragma: no cover

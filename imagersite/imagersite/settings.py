@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'coverage',
     'sass_processor',
+    'rest_framework',
+    'imager_api',
 ]
 
 MIDDLEWARE = [
