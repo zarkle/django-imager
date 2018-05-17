@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'coverage',
     'sass_processor',
     'rest_framework',
-    'imager_api',
 ]
 
 MIDDLEWARE = [
