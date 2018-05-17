@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'coverage',
     'sass_processor',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Django REST Framework Settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
