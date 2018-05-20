@@ -18,7 +18,7 @@ Clone the repo. Pip install the requirements.txt in your ENV. Create an imager d
 
 API Endpoint (server must be running): `http://localhost:8000/api/v1/photo/`
 
-HTTPie Endpoints (done in terminal after `pip install httpie`:
+HTTPie Endpoints (done in terminal after `pip install httpie`):
 - To get user token: `http :8000/api/v1/login username=<username> password=<password>`
 - To see user instance using token: `http :8000/api/v1/user/ 'Authorization:Token <token>`
 - POST route to make new user: `http :8000/api/v1/user/ email=<email> password=<password> username=<username>`
