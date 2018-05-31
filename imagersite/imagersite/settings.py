@@ -45,9 +45,12 @@ INSTALLED_APPS = [
     'coverage',
     'sass_processor',
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -114,6 +117,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Cors
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000/'
+)
+
+# Django REST Framework Settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

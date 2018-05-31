@@ -2,6 +2,7 @@ from django.db import models
 from multiselectfield import MultiSelectField
 from django.contrib.auth.models import User
 from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 
 class ActiveImagerProfileManager(models.Manager):
@@ -62,5 +63,6 @@ class ImagerProfile(models.Model):
 def create_profile(sender, **kwargs):
     """Create an empty profile anytime a new user is created."""
     if kwargs['created']:
+        Token.objects.create(user=kwargs['instance'])
         profile = ImagerProfile(user=kwargs['instance'])
         profile.save()
