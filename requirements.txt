@@ -12,7 +12,7 @@ confusable-homoglyphs==3.0.0
 coverage==4.5.1
 cryptography==2.2.2
 decorator==4.3.0
-Django==2.0.4
+Django==2.2.13
 django-appconf==1.0.2
 django-compressor==2.2
 django-cors-headers==2.2.0
