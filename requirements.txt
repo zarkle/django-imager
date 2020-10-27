@@ -10,7 +10,7 @@ cffi==1.11.5
 chardet==3.0.4
 confusable-homoglyphs==3.0.0
 coverage==4.5.1
-cryptography==2.2.2
+cryptography==3.2
 decorator==4.3.0
 Django==2.0.4
 django-appconf==1.0.2
